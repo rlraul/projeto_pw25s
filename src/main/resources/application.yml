@@ -1,0 +1,19 @@
+server:
+  port: 8025
+spring:
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      javax:
+        persistence:
+          validation:
+            mode: none
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://localhost:5432/projeto-pw25s
+    username: postgres
+    password: 1234
+    driverClassName: org.postgresql.Driver
