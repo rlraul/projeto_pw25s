@@ -4,12 +4,13 @@ import br.edu.utfpr.pw25s.projetoFinal.dto.UserDTO;
 import br.edu.utfpr.pw25s.projetoFinal.model.User;
 import br.edu.utfpr.pw25s.projetoFinal.service.UserService;
 import br.edu.utfpr.pw25s.projetoFinal.shared.GenericResponse;
-import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("users")
