@@ -81,7 +81,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 new ObjectMapper().writeValueAsString(
                         new AuthenticationResponse(token)
                 )
-        ); // { "token" : "asiduhasdiu.asuidhasiud.asiudhsaiud"}
+        );
 
     }
 

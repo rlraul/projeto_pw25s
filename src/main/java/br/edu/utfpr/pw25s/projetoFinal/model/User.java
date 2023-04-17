@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -39,6 +40,9 @@ public class User implements UserDetails {
     @Size(min = 6)
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).*$", message = "{br.edu.utfpr.pb.pw26s.server.user.password.constraints.Pattern.message}")
     private String password;
+
+    @OneToMany(mappedBy = "user")
+    private List<Account> accounts;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
