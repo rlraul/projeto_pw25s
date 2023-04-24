@@ -1,4 +1,4 @@
-package br.edu.utfpr.pw25s.projetoFinal.dto;
+package br.edu.utfpr.pw25s.projetoFinal.dto.user;
 
 import lombok.Data;
 

@@ -1,6 +1,6 @@
 package br.edu.utfpr.pw25s.projetoFinal.controller;
 
-import br.edu.utfpr.pw25s.projetoFinal.dto.UserDTO;
+import br.edu.utfpr.pw25s.projetoFinal.dto.user.UserDTO;
 import br.edu.utfpr.pw25s.projetoFinal.model.User;
 import br.edu.utfpr.pw25s.projetoFinal.service.UserService;
 import br.edu.utfpr.pw25s.projetoFinal.shared.GenericResponse;
