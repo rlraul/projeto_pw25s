@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("account")
+@RequestMapping("accounts")
 public class AccountController extends CrudController<Account, AccountDTO, Long>{
 
     private static AccountService accountService;

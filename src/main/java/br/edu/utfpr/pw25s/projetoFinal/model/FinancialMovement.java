@@ -5,6 +5,7 @@ import br.edu.utfpr.pw25s.projetoFinal.enums.MovementType;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -12,7 +13,7 @@ import java.util.Date;
 
 @Entity
 @Data
-@Table(name = "financialMovement")
+@Table
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
@@ -25,11 +26,12 @@ public class FinancialMovement {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "account_id")
+    @JoinColumn(name = "account_id", referencedColumnName = "id")
     private Account account;
 
     @NotNull
     @NotEmpty
+    @DecimalMin("0.01")
     private BigDecimal value;
 
     @NotNull
@@ -37,7 +39,7 @@ public class FinancialMovement {
     private Date date;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 
     @NotNull
