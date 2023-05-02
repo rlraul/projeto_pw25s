@@ -34,7 +34,7 @@ public class FinancialMovement {
     private Account accountToTransfer;
 
     @NotNull(message = "{br.edu.utfpr.pw25s.projetoFinal.financialMovement.value.NotNull.message}")
-    @DecimalMin("0.01")
+    @DecimalMin(value = "0.01", message = "{br.edu.utfpr.pw25s.projetoFinal.financialMovement.value.Min.message}")
     private BigDecimal value;
 
     @NotNull(message = "{br.edu.utfpr.pw25s.projetoFinal.financialMovement.date.NotNull.message}")

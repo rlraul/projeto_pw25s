@@ -12,13 +12,13 @@ public class AccountDTO {
 
     private long id;
 
-    @NotNull
+    @NotNull(message = "{br.edu.utfpr.pw25s.projetoFinal.account.number.NotNull.message}")
     private int number;
 
-    @NotNull
+    @NotNull(message = "{br.edu.utfpr.pw25s.projetoFinal.account.agency.NotNull.message}")
     private int agency;
 
-    @NotNull
+    @NotNull(message = "{br.edu.utfpr.pw25s.projetoFinal.account.bank.NotNull.message}")
     private int bank;
 
     @NotNull

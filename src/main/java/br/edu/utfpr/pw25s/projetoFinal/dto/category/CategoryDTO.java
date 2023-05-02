@@ -10,8 +10,8 @@ public class CategoryDTO {
 
     private long id;
 
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "{br.edu.utfpr.pw25s.projetoFinal.category.name.notNull.message}")
+    @NotEmpty(message = "{br.edu.utfpr.pw25s.projetoFinal.category.name.notEmpty.message}")
     private String name;
 
 }

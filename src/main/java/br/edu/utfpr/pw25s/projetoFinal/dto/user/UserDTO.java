@@ -1,5 +1,6 @@
 package br.edu.utfpr.pw25s.projetoFinal.dto.user;
 
+import br.edu.utfpr.pw25s.projetoFinal.annotation.UniqueUsername;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
@@ -9,18 +10,18 @@ import javax.validation.constraints.Size;
 @Data
 public class UserDTO {
 
-//    @UniqueUsername
-    @NotNull
-    @Size(min = 4, max = 50)
+    @UniqueUsername
+    @NotNull(message = "{br.edu.utfpr.pw25s.projetoFinal.user.username.constraints.NotNull.message}")
+    @Size(min = 4, max = 50, message = "{br.edu.utfpr.pw25s.projetoFinal.user.username.constraints.Size.message}")
     private String username;
 
-    @NotNull
-    @Size(min = 4, max = 50)
+    @NotNull(message = "{br.edu.utfpr.pw25s.projetoFinal.user.displayName.constraints.NotNull.message}")
+    @Size(min = 4, max = 50, message = "{br.edu.utfpr.pw25s.projetoFinal.user.displayName.constraints.Size.message}")
     private String displayName;
 
-    @NotNull(message = "{br.edu.utfpr.pb.pw26s.server.user.password.constraints.NotNull.message}")
+    @NotNull(message = "{br.edu.utfpr.pw25s.projetoFinal.user.password.constraints.NotNull.message}")
     @Size(min = 6)
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).*$", message = "{br.edu.utfpr.pb.pw26s.server.user.password.constraints.Pattern.message}")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).*$", message = "{br.edu.utfpr.pw25s.projetoFinal.user.password.constraints.Pattern.message}")
     private String password;
 
 }

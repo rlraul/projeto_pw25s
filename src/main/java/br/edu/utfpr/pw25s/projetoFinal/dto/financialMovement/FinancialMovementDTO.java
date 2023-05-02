@@ -23,24 +23,24 @@ public class FinancialMovementDTO {
 
     private Account accountToTransfer;
 
-    @NotNull
-    @DecimalMin("0.01")
+    @NotNull(message = "{br.edu.utfpr.pw25s.projetoFinal.financialMovement.value.NotNull.message}")
+    @DecimalMin(value = "0.01", message = "{br.edu.utfpr.pw25s.projetoFinal.financialMovement.value.Min.message}")
     private BigDecimal value;
 
-    @NotNull
+    @NotNull(message = "{br.edu.utfpr.pw25s.projetoFinal.financialMovement.date.NotNull.message}")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy'T'HH:mm:ss")
     private LocalDateTime date;
 
     @NotNull
     private Category category;
 
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "{br.edu.utfpr.pw25s.projetoFinal.financialMovement.description.NotNull.message}")
+    @NotEmpty(message = "{br.edu.utfpr.pw25s.projetoFinal.financialMovement.description.NotEmpty.message}")
     private String description;
 
-    @NotNull
+    @NotNull(message = "{br.edu.utfpr.pw25s.projetoFinal.financialMovement.situation.NotNull.message}")
     private MovementSituation situation;
 
-    @NotNull
+    @NotNull(message = "{br.edu.utfpr.pw25s.projetoFinal.financialMovement.type.NotNull.message}")
     private MovementType type;
 }
