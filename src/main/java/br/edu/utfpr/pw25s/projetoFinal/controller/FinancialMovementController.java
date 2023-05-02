@@ -20,7 +20,7 @@ public class FinancialMovementController {
         this.financialMovementService = financialMovementService;
     }
 
-    @PostMapping("credit")
+    @PostMapping()
     public ResponseEntity<FinancialMovementDTO> createMovement(@Valid @RequestBody FinancialMovementDTO financialMovementDTO) {
         this.financialMovementService.createMovement(financialMovementDTO);
         return ResponseEntity.ok(financialMovementDTO);

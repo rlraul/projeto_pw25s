@@ -21,6 +21,8 @@ public class FinancialMovementDTO {
     @NotNull
     private Account account;
 
+    private Account accountToTransfer;
+
     @NotNull
     @DecimalMin("0.01")
     private BigDecimal value;

@@ -29,6 +29,10 @@ public class FinancialMovement {
     @JoinColumn(name = "account_id", referencedColumnName = "id")
     private Account account;
 
+    @ManyToOne
+    @JoinColumn(name = "account_to_transfer_id", referencedColumnName = "id")
+    private Account accountToTransfer;
+
     @NotNull
     @DecimalMin("0.01")
     private BigDecimal value;
