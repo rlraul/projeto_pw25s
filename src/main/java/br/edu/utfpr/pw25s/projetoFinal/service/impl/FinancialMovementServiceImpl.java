@@ -2,6 +2,7 @@ package br.edu.utfpr.pw25s.projetoFinal.service.impl;
 
 import br.edu.utfpr.pw25s.projetoFinal.dto.financialMovement.FinancialMovementDTO;
 import br.edu.utfpr.pw25s.projetoFinal.enums.MovementType;
+import br.edu.utfpr.pw25s.projetoFinal.exceptions.FinancialMovementNegativeAmauntException;
 import br.edu.utfpr.pw25s.projetoFinal.model.Account;
 import br.edu.utfpr.pw25s.projetoFinal.model.FinancialMovement;
 import br.edu.utfpr.pw25s.projetoFinal.repository.AccountRepository;
@@ -56,7 +57,11 @@ public class FinancialMovementServiceImpl
 
         AccountValueStrategy strategy = strategies.get(financialMovement.getType());
 
-        strategy.execute(financialMovement);
+        try {
+            strategy.execute(financialMovement);
+        } catch (FinancialMovementNegativeAmauntException e) {
+            throw new RuntimeException(e.getMessage());
+        }
 
         this.save(financialMovement);
 
