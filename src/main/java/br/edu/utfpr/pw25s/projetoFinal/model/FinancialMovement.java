@@ -33,26 +33,26 @@ public class FinancialMovement {
     @JoinColumn(name = "account_to_transfer_id", referencedColumnName = "id")
     private Account accountToTransfer;
 
-    @NotNull
+    @NotNull(message = "{br.edu.utfpr.pw25s.projetoFinal.financialMovement.value.NotNull.message}")
     @DecimalMin("0.01")
     private BigDecimal value;
 
-    @NotNull
+    @NotNull(message = "{br.edu.utfpr.pw25s.projetoFinal.financialMovement.date.NotNull.message}")
     private LocalDateTime date;
 
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "{br.edu.utfpr.pw25s.projetoFinal.financialMovement.description.NotNull.message}")
+    @NotEmpty(message = "{br.edu.utfpr.pw25s.projetoFinal.financialMovement.description.NotEmpty.message}")
     private String description;
 
-    @NotNull
+    @NotNull(message = "{br.edu.utfpr.pw25s.projetoFinal.financialMovement.situation.NotNull.message}")
     @Enumerated(EnumType.ORDINAL)
     private MovementSituation situation;
 
-    @NotNull
+    @NotNull(message = "{br.edu.utfpr.pw25s.projetoFinal.financialMovement.type.NotNull.message}")
     @Enumerated(EnumType.ORDINAL)
     private MovementType type;
 }

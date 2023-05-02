@@ -25,16 +25,13 @@ public class Account {
     @ManyToOne
     private User user;
 
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "{br.edu.utfpr.pw25s.projetoFinal.account.number.NotNull.message}")
     private int number;
 
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "{br.edu.utfpr.pw25s.projetoFinal.account.agency.NotNull.message}")
     private int agency;
 
-    @NotNull
-    @NotEmpty
+    @NotNull(message = "{br.edu.utfpr.pw25s.projetoFinal.account.bank.NotNull.message}")
     private int bank;
 
     @NotNull
