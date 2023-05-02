@@ -6,6 +6,7 @@ import org.springframework.data.domain.Sort;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 public interface CrudService<T, ID extends Serializable> {
 
@@ -34,5 +35,7 @@ public interface CrudService<T, ID extends Serializable> {
     void delete(Iterable<? extends T> iterable);
 
     void deleteAll();
+
+    Optional<T> findById(ID id);
 
 }

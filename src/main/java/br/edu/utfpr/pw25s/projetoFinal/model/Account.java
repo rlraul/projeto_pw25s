@@ -3,8 +3,10 @@ package br.edu.utfpr.pw25s.projetoFinal.model;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 @Entity
 @Data
@@ -34,5 +36,9 @@ public class Account {
     @NotNull
     @NotEmpty
     private int bank;
+
+    @NotNull
+    @DecimalMin("0")
+    private BigDecimal amount;
 
 }

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 public abstract class CrudServiceImpl<T, ID extends Serializable> implements CrudService<T, ID> {
 
@@ -78,5 +79,9 @@ public abstract class CrudServiceImpl<T, ID extends Serializable> implements Cru
     @Override
     public void deleteAll() {
         getRepository().deleteAll();
+    }
+
+    public Optional<T> findById(ID id) {
+        return getRepository().findById(id);
     }
 }
