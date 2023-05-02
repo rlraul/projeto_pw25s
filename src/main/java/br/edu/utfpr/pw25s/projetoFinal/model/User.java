@@ -1,5 +1,6 @@
 package br.edu.utfpr.pw25s.projetoFinal.model;
 
+import br.edu.utfpr.pw25s.projetoFinal.annotation.UniqueUsername;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -25,9 +26,10 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-//    @UniqueUsername
-    @NotNull(message = "{br.edu.utfpr.pb.pw26s.server.user.username.constraints.NotNull.message}")
-    @Size(min = 4, max = 50, message = "{br.edu.utfpr.pb.pw26s.server.user.username.constraints.Size.message}")
+
+    @UniqueUsername
+    @NotNull(message = "{br.edu.utfpr.pw25s.projetoFinal.user.username.constraints.NotNull.message}")
+    @Size(min = 4, max = 50, message = "{br.edu.utfpr.pw25s.projetoFinal.user.username.constraints.Size.message}")
     @Column(length = 50)
     private String username;
 
@@ -36,9 +38,9 @@ public class User implements UserDetails {
     @Column(length = 50, name = "display_name")
     private String displayName;
 
-    @NotNull(message = "{br.edu.utfpr.pb.pw26s.server.user.password.constraints.NotNull.message}")
+    @NotNull(message = "{br.edu.utfpr.pw25s.projetoFinal.user.password.constraints.NotNull.message}")
     @Size(min = 6)
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).*$", message = "{br.edu.utfpr.pb.pw26s.server.user.password.constraints.Pattern.message}")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).*$", message = "{br.edu.utfpr.pw25s.projetoFinal.user.password.constraints.Pattern.message}")
     private String password;
 
     @OneToMany(mappedBy = "user")
