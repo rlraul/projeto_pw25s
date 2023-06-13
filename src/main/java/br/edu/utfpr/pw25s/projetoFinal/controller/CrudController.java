@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.Serializable;
+import java.util.List;
+import java.util.stream.Collectors;
 
 //T - Model que será "manipulado"(User, Account...)
 //D - DTO utilizado nas requisições
@@ -37,6 +39,15 @@ public abstract class CrudController<T, D, ID extends Serializable> {
 
     private T convertToEntity(D entityDto) {
         return getModelMapper().map(entityDto, this.typeClass);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<D>> findAll() {
+        return ResponseEntity.ok(
+                getService().findAll().stream().map(
+                        this::convertToDto).collect(Collectors.toList()
+                )
+        );
     }
 
     @GetMapping("page")

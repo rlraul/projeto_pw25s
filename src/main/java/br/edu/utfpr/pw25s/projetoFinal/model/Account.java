@@ -1,6 +1,8 @@
 package br.edu.utfpr.pw25s.projetoFinal.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
@@ -22,6 +24,12 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotNull(message = "{br.edu.utfpr.pw25s.projetoFinal.account.name.NotNull.message}")
+    @NotEmpty(message = "{br.edu.utfpr.pw25s.projetoFinal.account.name.NotEmpty.message}")
+    @Length(min = 1, max = 30, message = "{br.edu.utfpr.pw25s.projetoFinal.account.name.length.message}")
+    private String name;
+
+    @JsonIgnore
     @ManyToOne
     private User user;
 

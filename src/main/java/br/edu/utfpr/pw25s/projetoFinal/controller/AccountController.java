@@ -31,5 +31,4 @@ public class AccountController extends CrudController<Account, AccountDTO, Long>
     protected ModelMapper getModelMapper() {
         return this.modelMapper;
     }
-
 }
