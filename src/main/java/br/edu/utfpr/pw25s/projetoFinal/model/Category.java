@@ -1,5 +1,6 @@
 package br.edu.utfpr.pw25s.projetoFinal.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
@@ -20,6 +21,10 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @JsonIgnore
+    @ManyToOne
+    private User user;
 
     @NotNull(message = "{br.edu.utfpr.pw25s.projetoFinal.category.name.notNull.message}")
     @NotEmpty(message = "{br.edu.utfpr.pw25s.projetoFinal.category.name.notEmpty.message}")
