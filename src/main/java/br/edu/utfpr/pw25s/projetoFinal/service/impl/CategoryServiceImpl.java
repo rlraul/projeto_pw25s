@@ -5,6 +5,7 @@ import br.edu.utfpr.pw25s.projetoFinal.model.User;
 import br.edu.utfpr.pw25s.projetoFinal.repository.CategoryRepository;
 import br.edu.utfpr.pw25s.projetoFinal.repository.UserRepository;
 import br.edu.utfpr.pw25s.projetoFinal.service.CategoryService;
+import br.edu.utfpr.pw25s.projetoFinal.service.LoggedUserUtilsService;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -15,11 +16,12 @@ import java.util.List;
 public class CategoryServiceImpl extends CrudServiceImpl<Category, Long> implements CategoryService {
 
     private static CategoryRepository categoryRepository;
-    private static UserRepository userRepository;
 
-    public CategoryServiceImpl(CategoryRepository categoryRepository, UserRepository userRepository) {
+    private static LoggedUserUtilsService loggedUserUtilsService;
+
+    public CategoryServiceImpl(CategoryRepository categoryRepository, LoggedUserUtilsService loggedUserUtilsService) {
         this.categoryRepository = categoryRepository;
-        this.userRepository = userRepository;
+        this.loggedUserUtilsService = loggedUserUtilsService;
     }
 
     @Override
@@ -29,16 +31,16 @@ public class CategoryServiceImpl extends CrudServiceImpl<Category, Long> impleme
 
     @Override
     public List<Category> findAll() {
-        String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userRepository.findUserByUsername(username);
-        return this.categoryRepository.findByUserUsername(user.getUsername());
+        return this.categoryRepository.findByUserUsername(
+            loggedUserUtilsService.retornaObjetoDoUsuarioLogado().getUsername()
+        );
     }
 
     @Override
     public Category save(Category entity) {
-        String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userRepository.findUserByUsername(username);
-        entity.setUser(user);
+        entity.setUser(
+            loggedUserUtilsService.retornaObjetoDoUsuarioLogado()
+        );
         return super.save(entity);
     }
 }
