@@ -4,8 +4,12 @@ import br.edu.utfpr.pw25s.projetoFinal.dto.financialMovement.FinancialMovementDT
 import br.edu.utfpr.pw25s.projetoFinal.model.FinancialMovement;
 import org.springframework.http.ResponseEntity;
 
+import java.util.List;
+
 public interface FinancialMovementService extends CrudService<FinancialMovement, Long>{
 
     ResponseEntity<FinancialMovement> createMovement(FinancialMovementDTO financialMovementDTO);
+
+    List<FinancialMovement> findAllByAccountId(Long id);
 
 }
