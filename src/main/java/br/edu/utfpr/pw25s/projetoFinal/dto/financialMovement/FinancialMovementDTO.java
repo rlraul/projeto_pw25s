@@ -6,9 +6,9 @@ import br.edu.utfpr.pw25s.projetoFinal.model.Account;
 import br.edu.utfpr.pw25s.projetoFinal.model.Category;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -34,8 +34,7 @@ public class FinancialMovementDTO {
     @NotNull
     private Category category;
 
-    @NotNull(message = "{br.edu.utfpr.pw25s.projetoFinal.financialMovement.description.NotNull.message}")
-    @NotEmpty(message = "{br.edu.utfpr.pw25s.projetoFinal.financialMovement.description.NotEmpty.message}")
+    @Length(max = 150, message = "{br.edu.utfpr.pw25s.projetoFinal.financialMovement.description.length.message}")
     private String description;
 
     @NotNull(message = "{br.edu.utfpr.pw25s.projetoFinal.financialMovement.situation.NotNull.message}")

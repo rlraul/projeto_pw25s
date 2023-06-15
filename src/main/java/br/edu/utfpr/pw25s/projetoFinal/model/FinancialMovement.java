@@ -3,10 +3,10 @@ package br.edu.utfpr.pw25s.projetoFinal.model;
 import br.edu.utfpr.pw25s.projetoFinal.enums.MovementSituation;
 import br.edu.utfpr.pw25s.projetoFinal.enums.MovementType;
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -44,8 +44,7 @@ public class FinancialMovement {
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 
-    @NotNull(message = "{br.edu.utfpr.pw25s.projetoFinal.financialMovement.description.NotNull.message}")
-    @NotEmpty(message = "{br.edu.utfpr.pw25s.projetoFinal.financialMovement.description.NotEmpty.message}")
+    @Length(max = 150, message = "{br.edu.utfpr.pw25s.projetoFinal.financialMovement.description.length.message}")
     private String description;
 
     @NotNull(message = "{br.edu.utfpr.pw25s.projetoFinal.financialMovement.situation.NotNull.message}")
