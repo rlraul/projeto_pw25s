@@ -13,6 +13,7 @@ import br.edu.utfpr.pw25s.projetoFinal.service.impl.AccountValueStrategy.Account
 import br.edu.utfpr.pw25s.projetoFinal.service.impl.AccountValueStrategy.CreditAccountValueStrategy;
 import br.edu.utfpr.pw25s.projetoFinal.service.impl.AccountValueStrategy.DebitAccountValueStrategy;
 import br.edu.utfpr.pw25s.projetoFinal.service.impl.AccountValueStrategy.TransferAccountValueStrategy;
+import br.edu.utfpr.pw25s.projetoFinal.shared.GenericResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.ResponseEntity;
@@ -59,30 +60,52 @@ public class FinancialMovementServiceImpl
     @Override
     public ResponseEntity<FinancialMovement> createMovement(FinancialMovementDTO financialMovementDTO) {
         FinancialMovement financialMovement = modelMapper.map(financialMovementDTO, FinancialMovement.class);
-
-        AccountValueStrategy strategy = strategies.get(financialMovement.getType());
-
-        try {
-            if (financialMovement.getSituation().equals(MovementSituation.PAID)) {
-                strategy.execute(financialMovement);
-            }
-        } catch (FinancialMovementNegativeAmauntException e) {
-            throw new RuntimeException(e.getMessage());
-        }
-
+        executeMovementTypeStrategy(financialMovement);
         this.save(financialMovement);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .buildAndExpand(financialMovement.getId()).toUri();
-
         return ResponseEntity.created(location).body(financialMovement);
     }
 
     @Override
-    public ResponseEntity<FinancialMovement> updateMovementSituation(Long id) {
+    public GenericResponse updateMovementSituation(Long id) {
+        GenericResponse response = new GenericResponse();
         FinancialMovement financialMovement = financialMovementRepository.findById(id).get();
 
+        if (!financialMovement.getSituation().equals(MovementSituation.PENDING)) {
+            response.setMessage("Somente é possível confirmar movimentações pendentes");
+            return response;
+        }
+
         financialMovement.setSituation(MovementSituation.PAID);
+        executeMovementTypeStrategy(financialMovement);
+
+        this.save(financialMovement);
+        response.setMessage("Movimentação confirmada com sucesso");
+        return response;
+    }
+
+    @Override
+    public GenericResponse cancelMovement(Long id) {
+        GenericResponse response = new GenericResponse();
+        FinancialMovement financialMovement = financialMovementRepository.findById(id).get();
+
+        if (financialMovement.getSituation().equals(MovementSituation.PAID)) {
+            response.setMessage("Não é possível cancelar uma movimentação já confirmada");
+            return response;
+        }
+
+        financialMovement.setSituation(MovementSituation.CANCELED);
+
+        this.save(financialMovement);
+
+        response.setMessage("Movimentação cancelada!");
+        return response;
+    }
+
+    @Override
+    public void executeMovementTypeStrategy(FinancialMovement financialMovement) {
         AccountValueStrategy strategy = strategies.get(financialMovement.getType());
 
         try {
@@ -90,12 +113,6 @@ public class FinancialMovementServiceImpl
         } catch (FinancialMovementNegativeAmauntException e) {
             throw new RuntimeException(e.getMessage());
         }
-
-        this.save(financialMovement);
-
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .buildAndExpand(financialMovement.getId()).toUri();
-        return ResponseEntity.created(location).body(financialMovement);
     }
 
     @Override
