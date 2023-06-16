@@ -1,6 +1,7 @@
 package br.edu.utfpr.pw25s.projetoFinal.service.impl;
 
 import br.edu.utfpr.pw25s.projetoFinal.dto.financialMovement.FinancialMovementDTO;
+import br.edu.utfpr.pw25s.projetoFinal.enums.MovementSituation;
 import br.edu.utfpr.pw25s.projetoFinal.enums.MovementType;
 import br.edu.utfpr.pw25s.projetoFinal.exceptions.FinancialMovementNegativeAmauntException;
 import br.edu.utfpr.pw25s.projetoFinal.model.FinancialMovement;
@@ -62,7 +63,9 @@ public class FinancialMovementServiceImpl
         AccountValueStrategy strategy = strategies.get(financialMovement.getType());
 
         try {
-            strategy.execute(financialMovement);
+            if (financialMovement.getSituation().equals(MovementSituation.PAID)) {
+                strategy.execute(financialMovement);
+            }
         } catch (FinancialMovementNegativeAmauntException e) {
             throw new RuntimeException(e.getMessage());
         }
@@ -72,6 +75,26 @@ public class FinancialMovementServiceImpl
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .buildAndExpand(financialMovement.getId()).toUri();
 
+        return ResponseEntity.created(location).body(financialMovement);
+    }
+
+    @Override
+    public ResponseEntity<FinancialMovement> updateMovementSituation(Long id) {
+        FinancialMovement financialMovement = financialMovementRepository.findById(id).get();
+
+        financialMovement.setSituation(MovementSituation.PAID);
+        AccountValueStrategy strategy = strategies.get(financialMovement.getType());
+
+        try {
+            strategy.execute(financialMovement);
+        } catch (FinancialMovementNegativeAmauntException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+
+        this.save(financialMovement);
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .buildAndExpand(financialMovement.getId()).toUri();
         return ResponseEntity.created(location).body(financialMovement);
     }
 

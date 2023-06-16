@@ -10,6 +10,8 @@ public interface FinancialMovementService extends CrudService<FinancialMovement,
 
     ResponseEntity<FinancialMovement> createMovement(FinancialMovementDTO financialMovementDTO);
 
+    ResponseEntity<FinancialMovement> updateMovementSituation(Long id);
+
     List<FinancialMovement> findAllByAccountId(Long id);
 
 }
