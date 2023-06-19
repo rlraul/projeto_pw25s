@@ -15,6 +15,8 @@ import br.edu.utfpr.pw25s.projetoFinal.service.impl.AccountValueStrategy.DebitAc
 import br.edu.utfpr.pw25s.projetoFinal.service.impl.AccountValueStrategy.TransferAccountValueStrategy;
 import br.edu.utfpr.pw25s.projetoFinal.shared.GenericResponse;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -124,5 +126,16 @@ public class FinancialMovementServiceImpl
 
     public List<FinancialMovement> findAllByAccountId(Long id) {
         return this.financialMovementRepository.findAllByAccountId(id);
+    }
+
+    @Override
+    public Page<FinancialMovement> findAllByAccountUserUsernameAndTypeOrderByDateDesc(MovementType type, int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+
+        return financialMovementRepository.findAllByAccountUserUsernameAndTypeOrderByDateDesc(
+             loggedUserUtilsService.retornaObjetoDoUsuarioLogado().getUsername(),
+             type,
+             pageRequest
+        );
     }
 }
