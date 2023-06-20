@@ -110,10 +110,12 @@ public class FinancialMovementServiceImpl
     public void executeMovementTypeStrategy(FinancialMovement financialMovement) {
         AccountValueStrategy strategy = strategies.get(financialMovement.getType());
 
-        try {
-            strategy.execute(financialMovement);
-        } catch (FinancialMovementNegativeAmauntException e) {
-            throw new RuntimeException(e.getMessage());
+        if (financialMovement.getSituation().equals(MovementSituation.PAID)) {
+            try {
+                strategy.execute(financialMovement);
+            } catch (FinancialMovementNegativeAmauntException e) {
+                throw new RuntimeException(e.getMessage());
+            }
         }
     }
 
